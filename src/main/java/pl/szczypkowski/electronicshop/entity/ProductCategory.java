@@ -15,7 +15,7 @@ public class ProductCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private Long id;
-    @Column(name="category_name")
+    @Column(name="name")
     private String categoryName;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "category")

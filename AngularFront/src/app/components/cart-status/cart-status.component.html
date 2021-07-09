@@ -1,1 +1,5 @@
-<p>cart-status works!</p>
+<div class="cart-area ">
+    <a routerLink="/cart-details">
+      <div class="total">{{totalPrice | currency:'EUR '}} <span> {{totalQuantity}}</span> </div> <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+    </a>
+  </div>
