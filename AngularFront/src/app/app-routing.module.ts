@@ -10,7 +10,7 @@ const routes: Routes = [
   {path:'order-history',component:OrderHistoryComponent},
   {path: 'checkout',component:CheckoutComponent},
   {path: 'cart-details',component:CartDetailsComponent},
-  {path: 'products/:id',component:PrdouctDetailsComponent},
+  {path: 'product-details/:id',component:PrdouctDetailsComponent},
   {path: 'search/:keyword',component:PrdouctListComponent},
   {path: 'category/:id/:name',component:PrdouctListComponent},
   {path: 'category',component:PrdouctListComponent},
