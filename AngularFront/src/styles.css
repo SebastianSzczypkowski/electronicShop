@@ -49,3 +49,32 @@
     border-bottom-right-radius:20px;
     margin-left:11px
 }
+.main-content{
+    padding-top:50px;
+    padding-bottom:100px
+}
+.main-content.page-m{
+    padding:10% 0
+}
+.main-content.page-m{
+    padding:10% 30% 10% 5%
+}
+.main-content{
+    padding-top:116px;
+    min-height:100vh
+}
+section{
+    position:relative
+}
+.section-content{
+    position:relative;
+    margin:0 auto;
+    z-index:1
+}
+.section-content-p30{
+    padding:0 30px;
+    padding-left: 300px;
+}
+.footer-pagination{
+    text-align:center
+}
