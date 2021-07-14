@@ -17,14 +17,12 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @Column(name = "name")
+    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "surname")
+    @Column(name = "last_name")
     private  String lastName;
     @Column(name = "email")
     private String email;
-    @Column(name = "password")
-    private String password;
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<Order> orders = new HashSet<>();
 

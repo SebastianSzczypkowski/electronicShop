@@ -26,11 +26,11 @@ input.au-input.au-input-xl{
     right:0;
     min-width:95px;
     color:#fff;
-    border:1px solid #bac748;
+    border:1px solid #6b6b6b;
     -webkit-border-radius:3px;
     -moz-border-radius:3px;
     border-radius:43px;
-    background:#d6c875
+    background:#6b6b6b
 }
 
 .au-btn-submit:hover{

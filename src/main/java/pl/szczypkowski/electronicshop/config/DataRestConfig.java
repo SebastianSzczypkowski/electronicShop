@@ -38,7 +38,7 @@ public class DataRestConfig implements RepositoryRestConfigurer {
         disableHttpMethods(Order.class,config, unsuportedActions);
         exposeIds(config);
 
-        //cors.addMapping("/api/**").allowedOrigins("http://localhost:4200");
+       // cors.addMapping("/api/**").allowedOrigins("http://localhost:4200");
         cors.addMapping(config.getBasePath()+"/**").allowedOrigins(theAllowedOrigins);
 
     }

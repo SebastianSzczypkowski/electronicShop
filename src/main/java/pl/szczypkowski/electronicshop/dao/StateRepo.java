@@ -9,7 +9,7 @@ import pl.szczypkowski.electronicshop.entity.State;
 import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "states",path = "states")
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4200")
 public interface StateRepo extends JpaRepository<State,Long> {
 
     List<State> findByCountryCode(@Param("code") String code);

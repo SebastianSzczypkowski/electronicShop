@@ -10,7 +10,7 @@ import pl.szczypkowski.electronicshop.entity.Product;
 
 
 @RepositoryRestResource
-@CrossOrigin(origins = "http://localhost:4200")
+
 public interface ProductRepo extends JpaRepository<Product,Long> {
 
     Page<Product> findByCategoryId(@RequestParam("id") Long id, Pageable pageable);

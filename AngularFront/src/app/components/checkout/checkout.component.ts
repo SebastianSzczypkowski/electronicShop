@@ -25,6 +25,7 @@ export class CheckoutComponent implements OnInit {
   countries:Country[]=[];
   customerAddressStates:State[]=[];
   storage:Storage=sessionStorage;
+
   constructor(private formBuilder:FormBuilder,
     private shopService:ShopFormService,private cartService:CartService,
     private checkoutService:CheckoutService,private router:Router) { }
@@ -45,21 +46,18 @@ export class CheckoutComponent implements OnInit {
           city:new FormControl('',[Validators.required,Validators.minLength(2)]),
           country:new FormControl('',[Validators.required]),
           state:new FormControl('',[Validators.required]),
-          zipCode:new FormControl('00-000',[Validators.required,Validators.minLength(2)]),
+          zipCode:new FormControl('',[Validators.required,Validators.minLength(2)]),
           
         }),
-        creditCard:this.formBuilder.group({
-          cardType:[''],
-          nameOnCard:[''],
-          cardNumber:[''],
-          securityCode:[''],
-          expirationMonth:[''],
-          expirationYear:['']
-          
+        creditCard: this.formBuilder.group({
+          cardType: new FormControl('', [Validators.required]),
+          nameOnCard:  new FormControl('', [Validators.required, Validators.minLength(2), ]),
+          cardNumber: new FormControl('', [Validators.required, Validators.pattern('[0-9]{16}')]),
+          securityCode: new FormControl('', [Validators.required, Validators.pattern('[0-9]{3}')]),
+          expirationMonth: [''],
+          expirationYear: ['']
         })
-
-      }
-    );
+      });
     const startMonth:number=new Date().getMonth()+1;
     console.log("startMonth "+startMonth);
     this.shopService.getCreditCartMonths(startMonth).subscribe(
@@ -107,25 +105,34 @@ export class CheckoutComponent implements OnInit {
   get creditCardSecurityCode() { return this.checkoutFormGroup.get('creditCard.securityCode'); }
   onSubmit(){
     console.log("Handling the submit button");
-    if (this.checkoutFormGroup.invalid) {
+    
+    /*if (this.checkoutFormGroup.invalid) {
       this.checkoutFormGroup.markAllAsTouched();
       return;
-    }
+    }*/
+    
+    let purchase = new Purchase();
+    purchase.customer = this.checkoutFormGroup.controls['customer'].value;
+   
+
+
+    purchase.customerAddress = this.checkoutFormGroup.controls['customerAddress'].value;
+    const customerState:State=JSON.parse(JSON.stringify(purchase.customerAddress.state) );
+    const customerCountry: Country = JSON.parse(JSON.stringify(purchase.customerAddress.country) );
+    purchase.customerAddress.state=customerState.name;
+    purchase.customerAddress.country=customerCountry.name;
+    
     let order = new Order();
     order.totalPrice = this.totalPrice;
     order.totalQuantity = this.totalQuantity;
     const cartItems = this.cartService.cartItems;
     let orderItems: OrderItem[] = cartItems.map(tempCartItem => new OrderItem(tempCartItem));
-
-    let purchase = new Purchase();
-    purchase.customer = this.checkoutFormGroup.controls['customer'].value;
-    purchase.customerAddress = this.checkoutFormGroup.controls['customerAddress'].value;
-    const customerState:State=JSON.parse(JSON.stringify(purchase.customerAddress.state));
-    const customerCountry: Country = JSON.parse(JSON.stringify(purchase.customerAddress.country));
-    purchase.customerAddress.state=customerState.name;
-    purchase.customerAddress.country=customerCountry.name;
+    console.log('cart: '+order.totalPrice+"|"+ +order.totalQuantity);
+    console.log('cartItem:'+orderItems);
     purchase.order = order;
     purchase.orderItems = orderItems;
+    console.log('1:' +purchase.customerAddress.country);
+    console.log('12:' +purchase.customer.firstName);
     this.checkoutService.placeOrder(purchase).subscribe({
       next: response => {
         alert(`Your order has been received.\nOrder tracking number: ${response.orderTrackingNumber}`);
@@ -172,20 +179,14 @@ export class CheckoutComponent implements OnInit {
   }
   getStates(formGroupName:string)
   {
-    
     const formGroup = this.checkoutFormGroup.get(formGroupName)!;
     const countryCode=formGroup.value.country.code;
-    //const countryName=formGroup.value.country.name;
-
+    const countryName=formGroup.value.country.name;
     this.shopService.getStates(countryCode).subscribe(
       data=>{
-        
           this.customerAddressStates=data;
-        
-         // formGroup.get('state').setValue(data[0]);
       }
     )
-    
   };
 
 }

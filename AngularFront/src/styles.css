@@ -2,7 +2,7 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 
 .page-wrapper{
-    background:#e5e5e5;
+    background:#ffffff;
     padding-bottom:12vh
 }
 .main-content{
@@ -30,11 +30,11 @@
     padding-left: 450px;
 }
 .total{
-    background:#205b8d;
+    background:#6b6b6b;
     line-height:43px;
     color:#fff;
     border-radius:30px;
-    border:1px solid #0da8e4;
+    border:2px solid #6b6b6b;
     float:left;
     margin-top:7px;
     padding-left:17px
